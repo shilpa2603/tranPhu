@@ -1,7 +1,3 @@
-# Load libraries
-library(shiny)
-library(tidyverse)
-
 # Application Layout
 shinyUI(
   fluidPage(
@@ -13,9 +9,10 @@ shinyUI(
     # TASK 2: Add first fluidRow to select input for country
     fluidRow(
       column(12, 
-             wellPanel("country", label = "Country", 
+             wellPanel(inputId = "country", label = "Country", 
                        selectInput("country_select", label = NULL, 
-                                   choices = c("United-States", "Canada", "Mexico", "Germany", "Philippines"))
+                                   choices = c("United-States", "Canada", "Mexico", "Germany", "Philippines"),
+                                   selected = "United-States")
              )
       )
     ),
@@ -25,8 +22,8 @@ shinyUI(
       column(3, 
              wellPanel(
                p("Select a continuous variable and graph type (histogram or boxplot) to view on the right."),
-               radioButtons("continuous_variable", label = "Continuous", choices = c("ages", "hours_per_week")),   # add radio buttons for continuous variables
-               radioButtons("graph_type", label = "Graph", choices = c("histogram", "boxplot"))    # add radio buttons for chart type
+               radioButtons(inputId = "continuous_variable", label = "Continuous", choices = c("ages", "hours_per_week"),selected = "hours_per_week"),   # add radio buttons for continuous variables
+               radioButtons(inputId = "graph_type", label = "Graph", choices = c("histogram", "boxplot"),selected = "histogram")    # add radio buttons for chart type
                )
              ),
       column(9, 
@@ -39,7 +36,7 @@ shinyUI(
              wellPanel(
                p("Select a categorical variable to view bar chart on the right. Use the check box to view a stacked bar chart to combine the income levels into one graph. "),
                radioButtons("categorical_variable", label = "Categorical",
-                            choices = c("education", "workclass", "sex")),    # add radio buttons for categorical variables
+                            choices = c("education", "workclass", "sex"),selected = "education"),    # add radio buttons for categorical variables
                checkboxInput("is_stacked", label = "Stack bars", value = FALSE)     # add check box input for stacked bar chart option
                )
              ),
